@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       blocs: [
         Bloc((i) => CartListBloc())
-      ]
+      ],
       child:const MaterialApp(
       title: 'Food Delivery',
       home: Home(),
@@ -24,6 +24,8 @@ class MyApp extends StatelessWidget {
 }
 
 class Home extends StatelessWidget{
+  const Home({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class Home extends StatelessWidget{
       body: SafeArea(
         child: Container(
           child: ListView(
-            children: <Widget>[
+            children: const <Widget>[
               FirstHalf(),
             ],
           ),
@@ -43,17 +45,49 @@ class Home extends StatelessWidget{
 }
 
 class FirstHalf extends StatelessWidget{
+  const FirstHalf({super.key});
+
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return const Padding(
       padding: EdgeInsets.fromLTRB(35, 25, 0, 0,),
       child: Column(
         children: <Widget>[
-          CustomAppBar();
+          CustomAppBar(),
         ],
       ),
       );
+  }
+}
+
+class CustomAppBar extends StatelessWidget{
+  const CustomAppBar({super.key});
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children:<Widget>[
+          const Icon(Icons.menu),
+          Container(
+            margin: const EdgeInsets.only(right: 30),
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              color: Colors.yellow[800],
+              borderRadius: BorderRadius.circular(50),
+           
+            ),
+            child: const Text('0'),
+          ),
+
+        
+      ]),
+
+    );
   }
 }
 
