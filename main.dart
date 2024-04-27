@@ -1,3 +1,4 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/bloc/cartListBloc.dart';
 
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
       blocs: [
         Bloc((i) => CartListBloc())
       ],
+      dependencies: const[],
       child:const MaterialApp(
       title: 'Food Delivery',
       home: Home(),
@@ -50,14 +52,46 @@ class FirstHalf extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.fromLTRB(35, 25, 0, 0,),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(35, 25, 0, 0,),
       child: Column(
         children: <Widget>[
-          CustomAppBar(),
+          const CustomAppBar(),
+          const SizedBox(height: 30,),
+          title(),
+          const SizedBox(height: 30,),
         ],
       ),
       );
+  }
+
+  Widget title(){
+    return const Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        SizedBox(width: 45,),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Food',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 30,
+              ),
+            ),
+            Text(
+              'Delivery',
+              style: TextStyle(
+                fontWeight: FontWeight.w200,
+                fontSize: 30,
+              ),
+            )
+          ],
+        )
+      ],
+
+    );
   }
 }
 
@@ -73,15 +107,18 @@ class CustomAppBar extends StatelessWidget{
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children:<Widget>[
           const Icon(Icons.menu),
-          Container(
-            margin: const EdgeInsets.only(right: 30),
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: Colors.yellow[800],
-              borderRadius: BorderRadius.circular(50),
-           
+          GestureDetector(
+            onTap: (){},
+            child: Container(
+              margin: const EdgeInsets.only(right: 30),
+              padding: const EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: Colors.yellow[800],
+                borderRadius: BorderRadius.circular(50),
+             
+              ),
+              child: const Text('0'),
             ),
-            child: const Text('0'),
           ),
 
         
