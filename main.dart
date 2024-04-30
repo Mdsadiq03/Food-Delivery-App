@@ -246,6 +246,20 @@ class CategoryListItem extends StatelessWidget {
             color: Colors.black,
           ),
         ),
+        Container(
+          margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+          width: 1.5,
+          height: 15,
+
+        ),
+        Text(
+          availability.toString(),
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
+          ),
+        ),
+        
       ],
     ),
       );
