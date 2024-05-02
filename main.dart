@@ -55,7 +55,7 @@ class ItemContainer extends StatelessWidget {
 
   final CartListBloc bloc = BlocProvider.getBloc<CartListBloc>();
 
-  addToCart(FoodItem foodItem){
+  addToCart(FoodItem foodItem) {
     bloc.addToList(foodItem);
   }
 
@@ -68,9 +68,9 @@ class ItemContainer extends StatelessWidget {
         final snackbar = SnackBar(
           content: Text("${foodItem.title} added to the cart"),
           duration: Duration(milliseconds: 550),
-          );
+        );
 
-          ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        ScaffoldMessenger.of(context).showSnackBar(snackbar);
       },
       child: Items(
         hotel: foodItem.hotel,
@@ -134,7 +134,9 @@ class Items extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Container(
                 padding: EdgeInsets.only(
                   left: leftAligned ? 20 : 0,
@@ -153,36 +155,39 @@ class Items extends StatelessWidget {
                               fontSize: 18,
                             ),
                           ),
-                          ),
-                          Text("Rs: $itemPrice",
+                        ),
+                        Text(
+                          "Rs: $itemPrice",
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 18,
                           ),
-                          ),
+                        ),
                       ],
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: RichText(
                         text: TextSpan(
-                          style: TextStyle(
-                            color: Colors.black45,
-                            fontSize: 15,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: "by",
+                            style: TextStyle(
+                              color: Colors.black45,
+                              fontSize: 15,
                             ),
-                            TextSpan(
-                              text: hotel,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
+                            children: [
+                              TextSpan(
+                                text: "by",
                               ),
-                            ),
-                          ]
-                        ),),
+                              TextSpan(
+                                text: hotel,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ]),
+                      ),
                     ),
                   ],
                 ),
@@ -209,7 +214,7 @@ class FirstHalf extends StatelessWidget {
       ),
       child: Column(
         children: <Widget>[
-          const CustomAppBar(),
+          CustomAppBar(),
           const SizedBox(
             height: 30,
           ),
@@ -326,7 +331,9 @@ class FirstHalf extends StatelessWidget {
 }
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
+  CustomAppBar({super.key});
+
+  final CartListBloc bloc = BlocProvider.getBloc<CartListBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -336,7 +343,23 @@ class CustomAppBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             const Icon(Icons.menu),
-            GestureDetector(
+            StreamBuilder(
+              stream: bloc.listStream,
+              builder: (context, snapshot) {
+
+                List<FoodItem>? foodItems = snapshot.data;
+
+                int length = foodItems != null ? foodItems.length : 0; 
+
+                return buildGestureDetector(length, context, foodItems);
+              },
+            ),
+          ]),
+    );
+  }
+
+  GestureDetector buildGestureDetector(int length, BuildContext context, List<FoodItem>? foodItems){
+    return GestureDetector(
               onTap: () {},
               child: Container(
                 margin: const EdgeInsets.only(right: 30),
@@ -345,11 +368,9 @@ class CustomAppBar extends StatelessWidget {
                   color: Colors.yellow[800],
                   borderRadius: BorderRadius.circular(50),
                 ),
-                child: const Text('0'),
+                child: Text(length.toString()),
               ),
-            ),
-          ]),
-    );
+            );
   }
 }
 
