@@ -67,7 +67,7 @@ class ItemContainer extends StatelessWidget {
 
         final snackbar = SnackBar(
           content: Text("${foodItem.title} added to the cart"),
-          duration: Duration(milliseconds: 550),
+          duration: Duration(milliseconds: 1000),
         );
 
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
@@ -360,7 +360,13 @@ class CustomAppBar extends StatelessWidget {
 
   GestureDetector buildGestureDetector(int length, BuildContext context, List<FoodItem>? foodItems){
     return GestureDetector(
-              onTap: () {},
+              onTap: () {
+                if (length > 0){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Cart(),),);
+                }else{
+                  return;
+                }
+              },
               child: Container(
                 margin: const EdgeInsets.only(right: 30),
                 padding: const EdgeInsets.all(15),
