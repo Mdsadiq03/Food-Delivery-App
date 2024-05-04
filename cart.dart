@@ -28,3 +28,22 @@ class Cart extends StatelessWidget {
     );
   }
 }
+
+class CartBody extends StatelessWidget{
+  final List<FoodItem> foodItems;
+
+  CartBody(this.foodItems);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(35, 40, 25, 0),
+      child: Column(children: [
+        CustomAppBar(),
+
+      ]),
+    );
+  }
+}
+
+
