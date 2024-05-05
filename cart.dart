@@ -46,7 +46,37 @@ class CartBody extends StatelessWidget {
     );
   }
 
-  
+  Widget title(){
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 35),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "My",
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 35,
+                ),
+              ),
+              Text(
+                "Order",
+                style: TextStyle(
+                  fontWeight: FontWeight.w300,
+                  fontSize: 35,
+                ),
+              ),
+            ],
+          ),
+
+        ],
+      ),
+    );
+  }
+}
 
 class CustomAppBar extends StatelessWidget {
   final CartListBloc bloc = BlocProvider.getBloc<CartListBloc>();
