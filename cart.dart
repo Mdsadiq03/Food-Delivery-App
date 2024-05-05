@@ -14,7 +14,7 @@ class Cart extends StatelessWidget {
     return StreamBuilder(
       stream: bloc.listStream,
       builder: (context, snapshot) {
-        if (snapshot.data != null){
+        if (snapshot.data != null) {
           foodItems = snapshot.data!;
         }
         return Scaffold(
@@ -29,7 +29,7 @@ class Cart extends StatelessWidget {
   }
 }
 
-class CartBody extends StatelessWidget{
+class CartBody extends StatelessWidget {
   final List<FoodItem> foodItems;
 
   CartBody(this.foodItems);
@@ -40,10 +40,46 @@ class CartBody extends StatelessWidget{
       padding: EdgeInsets.fromLTRB(35, 40, 25, 0),
       child: Column(children: [
         CustomAppBar(),
-
+        title(),
+        Expanded(flex: 1,child:foodItems.length > 0 ? foodItemList() : noItemContainer() ,),
       ]),
     );
   }
+
+  
+
+class CustomAppBar extends StatelessWidget {
+  final CartListBloc bloc = BlocProvider.getBloc<CartListBloc>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.all(5),
+          child: GestureDetector(
+            child: Icon(
+              CupertinoIcons.back,
+              size: 30,
+            ),
+            onTap: () {
+              Navigator..pop(context);
+            },
+          ),
+        ),
+        GestureDetector(
+          child: Padding(
+            padding: EdgeInsets.all(5),
+            child: Icon(
+              CupertinoIcons.delete,
+              size: 35,
+            ),
+            
+          ),
+          onTap: (){},
+        ),
+      ],
+    );
+  }
 }
-
-
