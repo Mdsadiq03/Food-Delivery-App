@@ -38,15 +38,44 @@ class CartBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(35, 40, 25, 0),
-      child: Column(children: [
-        CustomAppBar(),
-        title(),
-        Expanded(flex: 1,child:foodItems.length > 0 ? foodItemList() : noItemContainer() ,),
-      ]),
+      child: Column(
+        children: [
+          CustomAppBar(),
+          title(),
+          Expanded(
+            flex: 1,
+            child: foodItems.length > 0 ? foodItemList() : noItemContainer(),
+          ),
+        ],
+      ),
     );
   }
 
-  Widget title(){
+  Container noItemContainer(){
+    return Container(
+      child: Center(
+        child: Text(
+          "No more items left in the Cart",
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            color: Colors.grey,
+            fontSize: 20,
+          ),
+        ),
+      ),
+    );
+  }
+
+  ListView foodItemList(){
+    return ListView.builder(
+      itemCount: foodItems.length,
+      itemBuilder: (builder, index){
+        return CartListItem(foodItem: foodItems[index],);
+      },
+    );
+  }
+
+  Widget title() {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 35),
       child: Row(
@@ -71,7 +100,6 @@ class CartBody extends StatelessWidget {
               ),
             ],
           ),
-
         ],
       ),
     );
@@ -105,9 +133,8 @@ class CustomAppBar extends StatelessWidget {
               CupertinoIcons.delete,
               size: 35,
             ),
-            
           ),
-          onTap: (){},
+          onTap: () {},
         ),
       ],
     );
