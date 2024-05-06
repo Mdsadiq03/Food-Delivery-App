@@ -2,6 +2,7 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:food_delivery/bloc/cartListBloc.dart';
+import 'package:food_delivery/main.dart';
 import 'package:food_delivery/model/fooditem.dart';
 
 class Cart extends StatelessWidget {
@@ -24,8 +25,10 @@ class Cart extends StatelessWidget {
             ),
           ),
         );
-      },
-    );
+      },else{
+        return Container();
+      }
+      );
   }
 }
 
@@ -51,7 +54,7 @@ class CartBody extends StatelessWidget {
     );
   }
 
-  Container noItemContainer(){
+  Container noItemContainer() {
     return Container(
       child: Center(
         child: Text(
@@ -66,11 +69,13 @@ class CartBody extends StatelessWidget {
     );
   }
 
-  ListView foodItemList(){
+  ListView foodItemList() {
     return ListView.builder(
       itemCount: foodItems.length,
-      itemBuilder: (builder, index){
-        return CartListItem(foodItem: foodItems[index],);
+      itemBuilder: (builder, index) {
+        return CartListItem(
+          foodItem: foodItems[index],
+        );
       },
     );
   }
@@ -99,6 +104,71 @@ class CartBody extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CartListItem extends StatelessWidget {
+  final FoodItem foodItem;
+
+  CartListItem({required this.foodItem, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 25),
+      child: ItemContent(foodItem: foodItem),
+    );
+  }
+}
+
+class ItemContent extends StatelessWidget {
+  const ItemContent({super.key, required this.foodItem});
+
+  final FoodItem foodItem;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(5),
+            child: Image.network(
+              foodItem.imgUrl,
+              fit: BoxFit.fitHeight,
+              height: 55,
+              width: 80,
+            ),
+          ),
+          RichText(
+            text: TextSpan(
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w700,
+                ),
+                children: [
+                  TextSpan(
+                    text: foodItem.quantity.toString(),
+                  ),
+                  TextSpan(text: "x"),
+                  TextSpan(
+                    text: foodItem.title,
+                  ),
+                ]),
+          ),
+          Text(
+            "\$${foodItem.quantity * foodItem.price}",
+            style: TextStyle(
+              color: Colors.grey,
+              fontWeight: FontWeight.w400,
+            ),
           ),
         ],
       ),
