@@ -2,7 +2,6 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:food_delivery/bloc/cartListBloc.dart';
-import 'package:food_delivery/main.dart';
 import 'package:food_delivery/model/fooditem.dart';
 
 class Cart extends StatelessWidget {
@@ -10,7 +9,7 @@ class Cart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<FoodItem> foodItems;
+    List<FoodItem>? foodItems;
 
     return StreamBuilder(
       stream: bloc.listStream,
@@ -21,15 +20,73 @@ class Cart extends StatelessWidget {
         return Scaffold(
           body: SafeArea(
             child: Container(
-              child: CartBody(foodItems),
+              child: CartBody(foodItems!),
             ),
           ),
+          bottomNavigationBar: BottomBar(foodItems!),
         );
-      },else{
-        return Container();
-      }
-      );
+      },
+    );
   }
+}
+
+class BottomBar extends StatelessWidget {
+  final List<FoodItem> foodItems;
+  const BottomBar(this.foodItems, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(left: 35, bottom: 25),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          totalAmount(foodItems),
+          Divider(
+            height: 1,
+            color: Colors.grey,
+          ),
+          persons(),
+        ],
+      ),
+    );
+  }
+
+
+  Container totalAmount(List<FoodItem> foodItem) {
+    return Container(
+      margin: EdgeInsets.only(right: 10),
+      padding: EdgeInsets.all(25),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Total",
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+          Text(
+            "\$${returnTotalAmount(foodItem)}",
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 28,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  String  returnTotalAmount(List<FoodItem> foodItems){
+    double totalAmount = 0.0;
+
+    for (int i = 0; i < foodItems.length; i++){
+      totalAmount = totalAmount + foodItems[i].price * foodItems[i].quantity;
+    }
+    return totalAmount.toStringAsFixed(2);
+  }
+
 }
 
 class CartBody extends StatelessWidget {
@@ -192,7 +249,7 @@ class CustomAppBar extends StatelessWidget {
               size: 30,
             ),
             onTap: () {
-              Navigator..pop(context);
+              Navigator.pop(context);
             },
           ),
         ),
