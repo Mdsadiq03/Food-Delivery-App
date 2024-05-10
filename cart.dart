@@ -108,6 +108,87 @@ class BottomBar extends StatelessWidget {
   }
 }
 
+class CustomerPersonWidget extends StatefulWidget {
+  const CustomerPersonWidget({super.key});
+
+  @override
+  State<CustomerPersonWidget> createState() => _CustomerPersonWidgetState();
+}
+
+class _CustomerPersonWidgetState extends State<CustomerPersonWidget> {
+  int noOfPersons = 1;
+  double _buttonWidth = 30;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(right: 25),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey, width: 2),
+        borderRadius: BorderRadius.circular(10),
+
+      ),
+      padding: EdgeInsets.symmetric(vertical: 5),
+      width: 120,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          SizedBox(
+            width: _buttonWidth,
+            height: _buttonWidth,
+            child: TextButton(
+              child: Text(
+                "-",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                ),
+              ),
+              onPressed: (){
+                setState(() {
+                  if (noOfPersons > 1){
+                  noOfPersons--;
+                }
+                });
+                
+              },
+            ),
+          ),
+          Text(
+            noOfPersons.toString(),
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 20,
+            ),
+          ),
+          SizedBox(
+            width: _buttonWidth,
+            height: _buttonWidth,
+            child: TextButton(
+              child: Text(
+                "+",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                ),
+              ),
+              onPressed: (){
+                setState(() {
+                  if (noOfPersons > 1){
+                  noOfPersons++;
+                }
+                });
+                
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class CartBody extends StatelessWidget {
   final List<FoodItem> foodItems;
 
