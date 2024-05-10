@@ -52,6 +52,25 @@ class BottomBar extends StatelessWidget {
     );
   }
 
+  Container persons() {
+    return Container(
+      margin: EdgeInsets.only(right: 10),
+      padding: EdgeInsets.symmetric(vertical: 30),
+      child:  Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "person",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+            ),
+          )
+          CustomerPersonWidget(),
+        ],
+      ),
+    );
+  }
 
   Container totalAmount(List<FoodItem> foodItem) {
     return Container(
@@ -78,15 +97,15 @@ class BottomBar extends StatelessWidget {
       ),
     );
   }
-  String  returnTotalAmount(List<FoodItem> foodItems){
+
+  String returnTotalAmount(List<FoodItem> foodItems) {
     double totalAmount = 0.0;
 
-    for (int i = 0; i < foodItems.length; i++){
+    for (int i = 0; i < foodItems.length; i++) {
       totalAmount = totalAmount + foodItems[i].price * foodItems[i].quantity;
     }
     return totalAmount.toStringAsFixed(2);
   }
-
 }
 
 class CartBody extends StatelessWidget {
