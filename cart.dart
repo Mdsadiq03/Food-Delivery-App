@@ -47,8 +47,37 @@ class BottomBar extends StatelessWidget {
             color: Colors.grey,
           ),
           persons(),
+          nextButtonBar(),
         ],
       ),
+    );
+  }
+
+  Container nextButtonBar(){
+    return Container(
+      margin: EdgeInsets.only(right: 10),
+      padding: EdgeInsets.symmetric(vertical: 30),
+      decoration: BoxDecoration(
+        color: Color(0xfffeb324), borderRadius: BorderRadius.circular(15),
+
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "15-25 min",
+            style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14,),
+          ),
+          Text(
+            "Next",
+            style: TextStyle(
+              fontWeight: FontWeight.w900,
+              fontSize: 16,
+            ),
+          ),
+        ],
+      ),
+      
     );
   }
 
@@ -56,7 +85,7 @@ class BottomBar extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(right: 10),
       padding: EdgeInsets.symmetric(vertical: 30),
-      child:  Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
@@ -65,8 +94,8 @@ class BottomBar extends StatelessWidget {
               fontSize: 14,
               fontWeight: FontWeight.w700,
             ),
-          )
-          CustomerPersonWidget(),
+          ),
+        const CustomerPersonWidget(),
         ],
       ),
     );
