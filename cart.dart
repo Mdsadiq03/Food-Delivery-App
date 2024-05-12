@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -55,20 +57,23 @@ class BottomBar extends StatelessWidget {
     );
   }
 
-  Container nextButtonBar(){
+  Container nextButtonBar() {
     return Container(
       margin: EdgeInsets.only(right: 10),
       padding: EdgeInsets.symmetric(vertical: 30),
       decoration: BoxDecoration(
-        color: Color(0xfffeb324), borderRadius: BorderRadius.circular(15),
-
+        color: Color(0xfffeb324),
+        borderRadius: BorderRadius.circular(15),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             "15-25 min",
-            style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14,),
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+              fontSize: 14,
+            ),
           ),
           Text(
             "Next",
@@ -79,7 +84,6 @@ class BottomBar extends StatelessWidget {
           ),
         ],
       ),
-      
     );
   }
 
@@ -97,7 +101,7 @@ class BottomBar extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
           ),
-        const CustomerPersonWidget(),
+          const CustomerPersonWidget(),
         ],
       ),
     );
@@ -150,7 +154,6 @@ class _CustomerPersonWidgetState extends State<CustomerPersonWidget> {
   int noOfPersons = 1;
   double _buttonWidth = 30;
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -158,7 +161,6 @@ class _CustomerPersonWidgetState extends State<CustomerPersonWidget> {
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey, width: 2),
         borderRadius: BorderRadius.circular(10),
-
       ),
       padding: EdgeInsets.symmetric(vertical: 5),
       width: 120,
@@ -176,13 +178,12 @@ class _CustomerPersonWidgetState extends State<CustomerPersonWidget> {
                   fontSize: 20,
                 ),
               ),
-              onPressed: (){
+              onPressed: () {
                 setState(() {
-                  if (noOfPersons > 1){
-                  noOfPersons--;
-                }
+                  if (noOfPersons > 1) {
+                    noOfPersons--;
+                  }
                 });
-                
               },
             ),
           ),
@@ -204,13 +205,12 @@ class _CustomerPersonWidgetState extends State<CustomerPersonWidget> {
                   fontSize: 20,
                 ),
               ),
-              onPressed: (){
+              onPressed: () {
                 setState(() {
-                  if (noOfPersons > 1){
-                  noOfPersons++;
-                }
+                  if (noOfPersons > 1) {
+                    noOfPersons++;
+                  }
                 });
-                
               },
             ),
           ),
@@ -219,7 +219,6 @@ class _CustomerPersonWidgetState extends State<CustomerPersonWidget> {
     );
   }
 }
-
 
 class CartBody extends StatelessWidget {
   final List<FoodItem> foodItems;
@@ -308,9 +307,15 @@ class CartListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Draggable(
+      data: foodItem,
       maxSimultaneousDrags: 1,
       child: DraggableChild(foodItem: foodItem),
       feedback: DraggableChildFeedback(foodItem: foodItem),
+      childWhenDragging: foodItem.quantity > 1
+          ? DraggableChild(
+              foodItem: foodItem,
+            )
+          : Container(),
     );
   }
 }
@@ -425,17 +430,39 @@ class CustomAppBar extends StatelessWidget {
             },
           ),
         ),
-        GestureDetector(
-          child: Padding(
-            padding: EdgeInsets.all(5),
-            child: Icon(
-              CupertinoIcons.delete,
-              size: 35,
-            ),
-          ),
-          onTap: () {},
-        ),
+        DragTagetWidget(),
       ],
+    );
+  }
+}
+
+class DragTagetWidget extends StatefulWidget {
+  const DragTagetWidget({super.key});
+
+  @override
+  State<DragTagetWidget> createState() => _DragTagetWidgetState();
+}
+
+class _DragTagetWidgetState extends State<DragTagetWidget> {
+  @override
+  Widget build(BuildContext context) {
+
+    return DragTarget<FoodItem>(
+      onWillAccept: (FoodItem foodItem){
+        return true;
+      },
+      onAccept: (FoodItem foodItem){
+        
+      },
+      builder: (context, incoming, rejected) {
+        return Padding(
+          padding: EdgeInsets.all(5.0),
+          child: Icon(
+            CupertinoIcons.delete,
+            size: 35,
+          ),
+        );
+      },
     );
   }
 }
