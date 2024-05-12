@@ -7,6 +7,8 @@ import 'package:food_delivery/model/fooditem.dart';
 class Cart extends StatelessWidget {
   final CartListBloc bloc = BlocProvider.getBloc<CartListBloc>();
 
+  Cart({super.key});
+
   @override
   Widget build(BuildContext context) {
     List<FoodItem>? foodItems;
@@ -15,7 +17,7 @@ class Cart extends StatelessWidget {
       stream: bloc.listStream,
       builder: (context, snapshot) {
         if (snapshot.data != null) {
-          foodItems = snapshot.data!;
+          foodItems = snapshot.data;
         }
         return Scaffold(
           body: SafeArea(
@@ -218,10 +220,11 @@ class _CustomerPersonWidgetState extends State<CustomerPersonWidget> {
   }
 }
 
+
 class CartBody extends StatelessWidget {
   final List<FoodItem> foodItems;
 
-  CartBody(this.foodItems);
+  const CartBody(this.foodItems, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -233,7 +236,7 @@ class CartBody extends StatelessWidget {
           title(),
           Expanded(
             flex: 1,
-            child: foodItems.length > 0 ? foodItemList() : noItemContainer(),
+            child: foodItems.isNotEmpty ? foodItemList() : noItemContainer(),
           ),
         ],
       ),
@@ -301,6 +304,46 @@ class CartListItem extends StatelessWidget {
   final FoodItem foodItem;
 
   CartListItem({required this.foodItem, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Draggable(
+      maxSimultaneousDrags: 1,
+      child: DraggableChild(foodItem: foodItem),
+      feedback: DraggableChildFeedback(foodItem: foodItem),
+    );
+  }
+}
+
+class DraggableChildFeedback extends StatelessWidget {
+  const DraggableChildFeedback({
+    super.key,
+    required this.foodItem,
+  });
+
+  final FoodItem foodItem;
+
+  @override
+  Widget build(BuildContext context) {
+    return Opacity(
+      opacity: 0.7,
+      child: Material(
+        child: Container(
+          margin: EdgeInsets.only(bottom: 25),
+          child: ItemContent(foodItem: foodItem),
+        ),
+      ),
+    );
+  }
+}
+
+class DraggableChild extends StatelessWidget {
+  const DraggableChild({
+    super.key,
+    required this.foodItem,
+  });
+
+  final FoodItem foodItem;
 
   @override
   Widget build(BuildContext context) {
