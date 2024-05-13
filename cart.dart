@@ -444,6 +444,9 @@ class DragTagetWidget extends StatefulWidget {
 }
 
 class _DragTagetWidgetState extends State<DragTagetWidget> {
+
+  final CartListBloc listBloc = BlocProvider.getBloc<CartListBloc>();
+
   @override
   Widget build(BuildContext context) {
 
@@ -452,7 +455,7 @@ class _DragTagetWidgetState extends State<DragTagetWidget> {
         return true;
       },
       onAccept: (FoodItem foodItem){
-        
+        listBloc.removeFromList(foodItem);
       },
       builder: (context, incoming, rejected) {
         return Padding(
