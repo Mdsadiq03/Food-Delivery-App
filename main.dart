@@ -1,6 +1,8 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/bloc/cartListBloc.dart';
+import 'package:food_delivery/bloc/listStyleColorBloc.dart';
+import 'package:food_delivery/cart.dart';
 import 'package:food_delivery/model/fooditem.dart';
 
 void main() {
@@ -13,7 +15,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      blocs: [Bloc((i) => CartListBloc())],
+      blocs: [
+        Bloc((i) => CartListBloc()),
+        Bloc((i) => ColorBloc()),
+      ],
       dependencies: const [],
       child: const MaterialApp(
         title: 'Food Delivery',
@@ -346,10 +351,9 @@ class CustomAppBar extends StatelessWidget {
             StreamBuilder(
               stream: bloc.listStream,
               builder: (context, snapshot) {
-
                 List<FoodItem>? foodItems = snapshot.data;
 
-                int length = foodItems != null ? foodItems.length : 0; 
+                int length = foodItems != null ? foodItems.length : 0;
 
                 return buildGestureDetector(length, context, foodItems);
               },
@@ -358,25 +362,31 @@ class CustomAppBar extends StatelessWidget {
     );
   }
 
-  GestureDetector buildGestureDetector(int length, BuildContext context, List<FoodItem>? foodItems){
+  GestureDetector buildGestureDetector(
+      int length, BuildContext context, List<FoodItem>? foodItems) {
     return GestureDetector(
-              onTap: () {
-                if (length > 0){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Cart(),),);
-                }else{
-                  return;
-                }
-              },
-              child: Container(
-                margin: const EdgeInsets.only(right: 30),
-                padding: const EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                  color: Colors.yellow[800],
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Text(length.toString()),
-              ),
-            );
+      onTap: () {
+        if (length > 0) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Cart(),
+            ),
+          );
+        } else {
+          return;
+        }
+      },
+      child: Container(
+        margin: const EdgeInsets.only(right: 30),
+        padding: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: Colors.yellow[800],
+          borderRadius: BorderRadius.circular(50),
+        ),
+        child: Text(length.toString()),
+      ),
+    );
   }
 }
 
