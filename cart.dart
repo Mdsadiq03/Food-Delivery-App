@@ -13,26 +13,37 @@ class Cart extends StatelessWidget {
   Cart({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    List<FoodItem>? foodItems;
-
-    return StreamBuilder(
-      stream: bloc.listStream,
-      builder: (context, snapshot) {
-        if (snapshot.data != null) {
-          foodItems = snapshot.data;
-        }
+Widget build(BuildContext context) {
+  return StreamBuilder<List<FoodItem>>(
+    stream: bloc.listStream,
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Scaffold(
+          body: Center(child: CircularProgressIndicator()),
+        );
+      } else if (snapshot.hasError) {
+        return Scaffold(
+          body: Center(child: Text('Error: ${snapshot.error}')),
+        );
+      } else if (!snapshot.hasData || snapshot.data == null) {
+        return const Scaffold(
+          body: Center(child: Text('No data available')),
+        );
+      } else {
+        List<FoodItem> foodItems = snapshot.data!;
         return Scaffold(
           body: SafeArea(
             child: Container(
-              child: CartBody(foodItems!),
+              child: CartBody(foodItems),
             ),
           ),
-          bottomNavigationBar: BottomBar(foodItems!),
+          bottomNavigationBar: BottomBar(foodItems),
         );
-      },
-    );
-  }
+      }
+    },
+  );
+}
+
 }
 
 class BottomBar extends StatelessWidget {
@@ -61,7 +72,7 @@ class BottomBar extends StatelessWidget {
   Container nextButtonBar() {
     return Container(
       margin: EdgeInsets.only(right: 10),
-      padding: EdgeInsets.symmetric(vertical: 30),
+      padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
       decoration: BoxDecoration(
         color: Color(0xfffeb324),
         borderRadius: BorderRadius.circular(15),
@@ -343,7 +354,7 @@ class DraggableChildFeedback extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 25),
               child: ItemContent(foodItem: foodItem),
               decoration: BoxDecoration(
-                color: snapshot.data != null ? snapshot.data : Colors.white
+                color: Colors.white,
               ),
             );
           }
@@ -463,15 +474,15 @@ class _DragTagetWidgetState extends State<DragTagetWidget> {
   Widget build(BuildContext context) {
 
     return DragTarget<FoodItem>(
-      onWillAccept: (FoodItem foodItem){
+      onWillAccept: (foodItem){
         colorBloc.setColor(Colors.red);
         return true;
       },
-      onAccept: (FoodItem foodItem){
+      onAccept: (foodItem){
         listBloc.removeFromList(foodItem);
         colorBloc.setColor(Colors.white);
       },
-      onLeave: (FoodItem foodItem){
+      onLeave: (foodItem){
         colorBloc.setColor(Colors.white);
       },
       builder: (context, incoming, rejected) {
