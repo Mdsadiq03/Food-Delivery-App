@@ -474,15 +474,17 @@ class _DragTagetWidgetState extends State<DragTagetWidget> {
   Widget build(BuildContext context) {
 
     return DragTarget<FoodItem>(
-      onWillAccept: (foodItem){
-        colorBloc.setColor(Colors.red);
-        return true;
-      },
-      onAccept: (foodItem){
+      onAccept: (FoodItem foodItem){
         listBloc.removeFromList(foodItem);
         colorBloc.setColor(Colors.white);
       },
-      onLeave: (foodItem){
+
+      onWillAccept: (FoodItem? foodItem){
+        colorBloc.setColor(Colors.red);
+        return true;
+      },
+      
+      onLeave: (FoodItem? foodItem){
         colorBloc.setColor(Colors.white);
       },
       builder: (context, incoming, rejected) {
