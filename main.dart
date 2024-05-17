@@ -319,13 +319,13 @@ class FirstHalf extends StatelessWidget {
           ),
           CategoryListItem(
             categoryIcon: Icons.bug_report,
-            categoryName: "Burgers",
+            categoryName: "wings",
             availability: 12,
             selected: false,
           ),
           CategoryListItem(
             categoryIcon: Icons.bug_report,
-            categoryName: "Burgers",
+            categoryName: "pasta",
             availability: 12,
             selected: false,
           ),
@@ -351,9 +351,10 @@ class CustomAppBar extends StatelessWidget {
             StreamBuilder(
               stream: bloc.listStream,
               builder: (context, snapshot) {
-                List<FoodItem>? foodItems = snapshot.data;
+                List<FoodItem> foodItems = snapshot.data ?? [];
 
-                int length = foodItems != null ? foodItems.length : 0;
+                
+                int length = foodItems.length;
 
                 return buildGestureDetector(length, context, foodItems);
               },
@@ -363,7 +364,7 @@ class CustomAppBar extends StatelessWidget {
   }
 
   GestureDetector buildGestureDetector(
-      int length, BuildContext context, List<FoodItem>? foodItems) {
+      int length, BuildContext context, List<FoodItem> foodItems) {
     return GestureDetector(
       onTap: () {
         if (length > 0) {
@@ -384,7 +385,7 @@ class CustomAppBar extends StatelessWidget {
           color: Colors.yellow[800],
           borderRadius: BorderRadius.circular(50),
         ),
-        child: Text(length.toString()),
+        child: Text("Cart ${length.toString()}"),
       ),
     );
   }
@@ -433,7 +434,7 @@ class CategoryListItem extends StatelessWidget {
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(50),
               border: Border.all(
                 color: selected ? Colors.transparent : Colors.grey,
                 width: 1.5,
