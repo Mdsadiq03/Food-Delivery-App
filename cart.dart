@@ -3,9 +3,12 @@ import 'dart:ui';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+//import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery/bloc/cartListBloc.dart';
 import 'package:food_delivery/bloc/listStyleColorBloc.dart';
 import 'package:food_delivery/model/fooditem.dart';
+
+//import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Cart extends StatelessWidget {
   final CartListBloc bloc = BlocProvider.getBloc<CartListBloc>();
@@ -342,19 +345,20 @@ class DraggableChildFeedback extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final ColorBloc colorbloc = BlocProvider.getBloc<ColorBloc>();
 
     return Opacity(
       opacity: 0.7,
       child: Material(
-        child: StreamBuilder<Object>(
+        child: StreamBuilder<Color>(
           stream: colorbloc.colorStream,
           builder: (context, snapshot) {
             return Container(
               margin: EdgeInsets.only(bottom: 25),
               child: ItemContent(foodItem: foodItem),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: snapshot.data ?? Colors.white,
               ),
             );
           }
@@ -422,7 +426,7 @@ class ItemContent extends StatelessWidget {
           Text(
             "\$${foodItem.quantity * foodItem.price}",
             style: TextStyle(
-              color: Colors.grey,
+              color: const Color.fromARGB(255, 114, 109, 109),
               fontWeight: FontWeight.w400,
             ),
           ),
@@ -471,7 +475,7 @@ class _DragTagetWidgetState extends State<DragTagetWidget> {
   final ColorBloc colorBloc = BlocProvider.getBloc<ColorBloc>();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,) {
 
     return DragTarget<FoodItem>(
       onAccept: (FoodItem foodItem){
@@ -487,15 +491,20 @@ class _DragTagetWidgetState extends State<DragTagetWidget> {
       onLeave: (FoodItem? foodItem){
         colorBloc.setColor(Colors.white);
       },
-      builder: (context, incoming, rejected) {
-        return Padding(
+      builder: (BuildContext context, List incoming,List rejected) {
+        return const Padding(
           padding: EdgeInsets.all(5.0),
           child: Icon(
             CupertinoIcons.delete,
-            size: 35,
+            size: 35,  
+            
           ),
         );
       },
     );
   }
 }
+
+
+
+
