@@ -107,15 +107,17 @@ class BottomBar extends StatelessWidget {
       margin: EdgeInsets.only(right: 10),
       padding: EdgeInsets.symmetric(vertical: 30),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          SizedBox(width: 20,),
           Text(
-            "person",
+            "persons",
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 18,
               fontWeight: FontWeight.w700,
             ),
           ),
+          SizedBox(width: 100,),
           const CustomerPersonWidget(),
         ],
       ),
@@ -167,7 +169,7 @@ class CustomerPersonWidget extends StatefulWidget {
 
 class _CustomerPersonWidgetState extends State<CustomerPersonWidget> {
   int noOfPersons = 1;
-  double _buttonWidth = 30;
+  //double _buttonWidth = 30;
 
   @override
   Widget build(BuildContext context) {
@@ -178,19 +180,21 @@ class _CustomerPersonWidgetState extends State<CustomerPersonWidget> {
         borderRadius: BorderRadius.circular(10),
       ),
       padding: EdgeInsets.symmetric(vertical: 5),
-      width: 120,
+      width: 150,
+     
+      
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          SizedBox(
-            width: _buttonWidth,
-            height: _buttonWidth,
-            child: TextButton(
-              child: Text(
-                "-",
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20,
+          TextButton(
+              child: Container(
+                height: 30,
+                child: Text(
+                  "-",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                  ),
                 ),
               ),
               onPressed: () {
@@ -201,7 +205,7 @@ class _CustomerPersonWidgetState extends State<CustomerPersonWidget> {
                 });
               },
             ),
-          ),
+          
           Text(
             noOfPersons.toString(),
             style: TextStyle(
@@ -209,26 +213,24 @@ class _CustomerPersonWidgetState extends State<CustomerPersonWidget> {
               fontSize: 20,
             ),
           ),
-          SizedBox(
-            width: _buttonWidth,
-            height: _buttonWidth,
-            child: TextButton(
-              child: Text(
-                "+",
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20,
+          TextButton(
+              child: Container(
+                height: 30,
+                child: Text(
+                  "+",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                  ),
                 ),
               ),
               onPressed: () {
                 setState(() {
-                  if (noOfPersons > 1) {
-                    noOfPersons++;
-                  }
+                  noOfPersons++;
                 });
               },
             ),
-          ),
+        
         ],
       ),
     );
@@ -358,6 +360,7 @@ class DraggableChildFeedback extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 25),
               child: ItemContent(foodItem: foodItem),
               decoration: BoxDecoration(
+                
                 color: snapshot.data ?? Colors.white,
               ),
             );
@@ -398,7 +401,7 @@ class ItemContent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(10),
             child: Image.network(
               foodItem.imgUrl,
               fit: BoxFit.fitHeight,

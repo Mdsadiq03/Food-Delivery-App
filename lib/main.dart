@@ -162,16 +162,17 @@ class Items extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "Rs: $itemPrice",
+                          "\$ $itemPrice",
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 18,
                           ),
                         ),
                       ],
+
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 3,
                     ),
                     Align(
                       alignment: Alignment.centerLeft,
@@ -194,6 +195,7 @@ class Items extends StatelessWidget {
                             ]),
                       ),
                     ),
+                    SizedBox(height: 10,),
                   ],
                 ),
               ),
@@ -308,25 +310,25 @@ class FirstHalf extends StatelessWidget {
           CategoryListItem(
             categoryIcon: Icons.bug_report,
             categoryName: "Pizza",
-            availability: 12,
+            availability: 9,
             selected: false,
           ),
           CategoryListItem(
             categoryIcon: Icons.bug_report,
             categoryName: "Rolls",
-            availability: 12,
+            availability: 15,
             selected: false,
           ),
           CategoryListItem(
             categoryIcon: Icons.bug_report,
             categoryName: "wings",
-            availability: 12,
+            availability: 8,
             selected: false,
           ),
           CategoryListItem(
             categoryIcon: Icons.bug_report,
             categoryName: "pasta",
-            availability: 12,
+            availability: 10,
             selected: false,
           ),
         ],
@@ -411,17 +413,18 @@ class CategoryListItem extends StatelessWidget {
       margin: EdgeInsets.only(right: 20),
       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
       decoration: BoxDecoration(
+        
           borderRadius: BorderRadius.circular(50),
           color: selected ? Color(0xfffeb324) : Colors.white,
           border: Border.all(
             color: selected
-                ? Colors.transparent
-                : Color.fromARGB(44, 110, 109, 109),
+                ? Color.fromARGB(26, 78, 74, 74)
+                : Color.fromARGB(255, 223, 219, 219),
             width: 1.5,
           ),
           boxShadow: const [
             BoxShadow(
-              color: Color.fromARGB(19, 167, 161, 161),
+              color: Color.fromARGB(24, 167, 161, 161),
               blurRadius: 15,
               offset: Offset(25, 0),
               spreadRadius: 5,
