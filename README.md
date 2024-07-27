@@ -8,7 +8,7 @@ Key Features:
  
 2. **Dynamic Cart Management**:
  - View and manage your cart in real-time.
- - Increase or decrease item quantities directly from the cart.
+ - Increase/decrease item quantities directly from the cart.
  - Drag and drop items to remove them easily.
 
 3. **Customizable UI**:
