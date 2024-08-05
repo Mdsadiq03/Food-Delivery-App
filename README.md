@@ -13,7 +13,7 @@ Key Features:
 
 3. **Customizable UI**:
  - Implemented Bloc pattern to manage state efficiently.
- - Real-time UI updates using StreamBuilder and BehaviorSubject from RxDart.
+ - Real-time UI updates using StreamBuilder & BehaviorSubject from RxDart.
  - Dynamic color changes to enhance the user experience during interactions.
 
 Technical Highlights:
