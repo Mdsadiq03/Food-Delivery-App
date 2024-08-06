@@ -17,7 +17,7 @@ Key Features:
  - Dynamic color changes to enhance the user experience during interactions.
 
 Technical Highlights:
-- **Flutter**: Leveraged Flutter's powerful UI toolkit to create a responsive and visually appealing interface.
+- **Flutter**: Leveraged Flutter's powerful UI toolkit to create a responsive & visually appealing interface.
 - **Bloc Pattern**: Used Bloc for state management to ensure clean and maintainable code.
 - **RxDart**: Integrated RxDart for handling reactive programming, making the app more efficient.
 - **StreamBuilder**: Utilized StreamBuilder to reactively update the UI based on data changes.
