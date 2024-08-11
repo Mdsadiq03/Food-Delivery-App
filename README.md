@@ -23,7 +23,7 @@ Technical Highlights:
 - **StreamBuilder**: Utilized StreamBuilder to reactively update the UI based on data changes.
 
 Components Breakdown:
-- **Home Screen**: Displays categories and a list of food items.
+- **Home Screen**: Displays categories & a list of food items.
 - **ItemContainer**: Each food item is displayed with an image, name, and price. Tap to add to cart.
 - **Cart Screen**: Shows all items in the cart with options to modify quantities or remove items.
 - **CustomAppBar**: Includes a dynamic cart icon that updates the item count in real-time.
